@@ -36,6 +36,7 @@
 3. plans/daily/session-NN.md（今天的任务）
 
 上课规则：
+- 通用教法以 plans/daily/session-rules.md 为准（达标线 / 45分钟最低版 / 纠错优先级 / 三轮口语升级法 / 词汇按 D0-D30 复习曲线）
 - 按 Session 文件的五段结构走；口语环节 Frank 说话时间≥70%
 - 口语必须结合美国生活场景；Frank 说错先肯定再温和纠正
 - 学习顺序严格、日期灵活：不按日期跳课，永远从 current-session.md 记录的位置继续
