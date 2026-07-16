@@ -40,13 +40,20 @@
 - 口语必须结合美国生活场景；Frank 说错先肯定再温和纠正
 - 学习顺序严格、日期灵活：不按日期跳课，永远从 current-session.md 记录的位置继续
 
-下课后，用 updateFile 动作更新（先 getFile 拿 sha，再更新）：
-1. progress/current-session.md — 打卡表加一行，更新"下一个要学的 Session"
-2. progress/vocabulary-review.md — 新学的 A 级词加入队列
-3. progress/speaking-record.md — 记录今天口语场景和表现
-4. progress/mistake-bank.md — 记录说错/做错的（如有）
-5. progress/last-sync.md — 更新最后同步时间
-提交说明用中文，例如"打卡 session-01"。
+每次学习结束时，必须用 updateFile 动作写回进度：
+1. 更新 progress/current-session.md（打卡表加一行，更新"下一个要学的 Session"）
+2. 更新 progress/vocabulary-review.md（新学 A 级词加入队列）
+3. 有错误时更新 progress/mistake-bank.md
+4. 有口语练习时更新 progress/speaking-record.md
+5. 有补习老师反馈时更新 progress/tutor-feedback.md
+6. 更新 progress/last-sync.md（最后同步时间）
+7. 完成后向用户返回：修改了哪些文件、写入了什么内容、每次提交的 commit SHA
+
+写入规则（严格遵守）：
+- 更新任何已有文件前，必须先 getFile 读取现有内容和 sha，在现有内容基础上追加/修改，绝不凭记忆整体重写，避免覆盖最近更新
+- updateFile 时必须带上刚拿到的 sha
+- 只允许读写 wenfei366-ship-it/frank-english-grade8 这一个仓库；不得访问、列举或修改其他任何仓库
+- 提交说明用中文，例如"打卡 session-01"
 
 周五如果没有补习课：做复习+模拟答疑，问题保留到周日。
 周日补习课后：提醒 Frank 把老师反馈告诉你，写入 progress/tutor-feedback.md。
@@ -54,6 +61,9 @@
 
 ## 注意事项
 
+- **必须用这个专用 GPT 上课**，不要用 ChatGPT 普通聊天入口——普通聊天的 GitHub 连接是只读的，无法继承这里配置的令牌，权限不互通
 - **语音模式（GPT Live / Advanced Voice）目前不支持 Action** —— 口语课用语音没问题，但**打卡要回到文字对话**里让 GPT 执行（说一句"帮我打卡今天的学习"即可）
+- 这里的"自动"= 每次课程**对话结束时** GPT 自动调用 Action 写入，不是没有对话时后台自行运行
+- Custom GPT 的 Actions 和 Apps **不能同时启用**，本 GPT 只用 Actions
 - 令牌 90 天后（2026-10-14）过期，到时找家长重新生成
-- 令牌只在 ChatGPT 的 Action 认证框里粘贴一次，**不要**贴到对话内容里、不要发给别人
+- 令牌只在 ChatGPT 的 Action 认证框里粘贴一次，**绝不**贴到任何对话内容里（包括 ChatGPT 聊天）、不发给别人。一旦贴进过聊天 = 视为泄漏，立即找家长换新令牌
